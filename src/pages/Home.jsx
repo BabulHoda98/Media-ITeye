@@ -8,10 +8,13 @@ import Testimonials from './Testimonials';
 const Home = () => {
   const [showAnimation, setShowAnimation] = useState(false);
   const heroImages = [
-    "src/assets/images/HomeImages/Team1.jpg",
-    "src/assets/images/HomeImages/Screenshot1.png",
-    "src/assets/images/HomeImages/Screenshot2.png",
-    "src/assets/images/HomeImages/Screenshot3.png"
+    "/Team1.jpg",
+    "/Screenshot1.png",
+    "/Screenshot2.png",
+    "/Screenshot3.png"
+    //  "src/assets/images/HomeImages/Screenshot1.png",
+    // "src/assets/images/HomeImages/Screenshot2.png",
+    // "src/assets/images/HomeImages/Screenshot3.png"
   ];
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
 
