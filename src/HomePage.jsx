@@ -22,10 +22,10 @@ const HomePage = () => {
       <Navbar />
       <main className="flex-grow">
         <Home />
+        <div id="about"><AboutUs /></div>
         <div id="services"><Services /></div>
         <div id="team"><Team /></div>
         <div id="testimonials"><Testimonials /></div>
-        <div id="about"><AboutUs /></div>
         <div id="contact"><Contact /></div>
       </main>
     </div>
