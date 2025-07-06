@@ -125,3 +125,17 @@
 .animate-gradientMove {
   animation: gradientMove 2s linear infinite;
 }
+
+@keyframes toast-slide-in {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.animate-toast-slide-in {
+  animation: toast-slide-in 0.6s cubic-bezier(0.4,0,0.2,1);
+}
