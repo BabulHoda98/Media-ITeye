@@ -1,324 +1,463 @@
-// import React, { useEffect, useState, useRef } from "react";
-// import { motion } from "framer-motion";
+// import React, { useEffect, useState } from 'react';
+// import { motion } from 'framer-motion';
 
 // const Home = () => {
-//   const [currentHeroImage, setCurrentHeroImage] = useState(0);
-//   const containerRef = useRef(null);
+//   const [showAnimation, setShowAnimation] = useState(false);
+//   const [currentGlowColor, setCurrentGlowColor] = useState(0);
 //   const heroImages = [
 //     "/Team1.jpg",
 //     "/Screenshot1.png",
 //     "/Screenshot2.png",
-//     "/Screenshot3.png",
+//     "/home2.jpg"
+//   ];
+//   const homeImages = [
+//     "/imagesMiteye.jpg",
+//     // "/home1.jpg",
+//     "/home3.jpg"
+//   ];
+//   const [currentCenterImage, setCurrentCenterImage] = useState(0);
+
+//   // Subtler glow colors with reduced intensity
+//   const glowColors = [
+//     { 
+//       color: 'orange',
+//       shadow: '0 0 20px 5px rgba(251, 191, 36, 0.7)'
+//     },
+//     { 
+//       color: 'red',
+//       shadow: '0 0 20px 5px rgba(239, 68, 68, 0.7)'
+//     },
+//     { 
+//       color: 'pink',
+//       shadow: '0 0 20px 5px rgba(236, 72, 153, 0.7)'
+//     },
+//     { 
+//       color: 'blue',
+//       shadow: '0 0 20px 5px rgba(59, 130, 246, 0.7)'
+//     },
+//     { 
+//       color: 'purple',
+//       shadow: '0 0 20px 5px rgba(139, 92, 246, 0.7)'
+//     }
 //   ];
 
 //   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setCurrentHeroImage(prev => (prev + 1) % heroImages.length);
+//     setShowAnimation(true);
+    
+//     // Interval for changing center image
+//     const imageInterval = setInterval(() => {
+//       setCurrentCenterImage((prev) => (prev + 1) % homeImages.length);
 //     }, 3000);
-//     return () => clearInterval(interval);
-//   }, []);
+    
+//     // Interval for changing glow color (slower transition)
+//     const glowInterval = setInterval(() => {
+//       setCurrentGlowColor((prev) => (prev + 1) % glowColors.length);
+//     }, 3000); // Change color every 3 seconds
+    
+//     return () => {
+//       clearInterval(imageInterval);
+//       clearInterval(glowInterval);
+//     };
+//   }, [homeImages.length]);
+
+//   // Floating animation variants
+//   const floatVariants = {
+//     floatBottomPop: {
+//       y: [0, 40, 0],
+//       scale: [1, 1.18, 1],
+//       transition: {
+//         duration: 4,
+//         repeat: Infinity,
+//         repeatType: "mirror",
+//         ease: "easeInOut"
+//       }
+//     },
+//     floatReverse: {
+//       y: [0, -40, 0],
+//       scale: [1, 1.18, 1],
+//       transition: {
+//         duration: 4,
+//         repeat: Infinity,
+//         repeatType: "mirror",
+//         ease: "easeInOut"
+//       }
+//     }
+//   };
 
 //   return (
-//     <div className="min-h-screen bg-white overflow-x-hidden">
-//       {/* Enhanced Hero Section */}
-//       <section className="flex flex-col-reverse md:flex-row items-center justify-between px-4 py-12 md:py-24 max-w-7xl mx-auto">
-//         {/* Left Content */}
-//         <div className="w-full md:w-1/2 flex flex-col items-start space-y-8 mt-12 md:mt-0">
-//           <motion.h1 
-//             className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight"
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.8 }}
-//           >
-//             Empowering Connections,<br />
-//             <span className="text-amber-600">Illuminating Networks</span>
-//           </motion.h1>
-          
-//           <motion.p 
-//             className="text-lg text-gray-600 max-w-lg"
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.8, delay: 0.2 }}
-//           >
-//             Transform your online presence into a captivating symphony of likes, shares, and followers!
-//           </motion.p>
-          
-//           <motion.div 
-//             className="flex flex-col sm:flex-row gap-4"
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.8, delay: 0.4 }}
-//           >
-//             <a
-//               href="#services"
-//               className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 shadow-lg hover:shadow-xl"
-//             >
-//               Explore Services
-//             </a>
-//             <a
-//               href="#contact"
-//               className="bg-white border-2 border-gray-800 text-gray-800 hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition duration-300 shadow-lg hover:shadow-xl"
-//             >
-//               Contact Us
-//             </a>
-//           </motion.div>
+//     <div className="min-h-screen bg-gradient-to-br from-pink-200 via-yellow-100 to-blue-200 py-4">
+//       <div className="flex w-full h-[80vh] gap-8 px-6 mx-auto max-w-[1400px] items-center justify-center mt-12">
+//         {/* Left Card */}
+//         <div className="flex-1 flex flex-col items-center justify-center">
+//           <div className="bg-white rounded-2xl shadow-2xl p-6 flex flex-col items-center w-[340px] mx-auto">
+//             <div className="relative w-[260px] h-[260px] rounded-full bg-orange-50 flex items-center justify-center overflow-hidden">
+//               {/* Animated Glow Layer */}
+//               <div className="absolute inset-0 rounded-full animate-[multiGlow_4s_linear_infinite] z-0" />
+//               {/* Animated Image Layer */}
+//               <div className="absolute inset-0 w-full h-full rounded-full animate-[floatPop_4s_ease-in-out_infinite] z-10">
+//                 <img
+//                   src={heroImages[3]}
+//                   alt="Team"
+//                   className="w-full h-full object-cover rounded-full"
+//                   style={{ zIndex: 2 }}
+//                 />
+//               </div>
+//               {/* Optional overlays */}
+//               <div className="absolute inset-0 rounded-full border-4 border-white/30 z-20"></div>
+//               <div className="absolute inset-0 rounded-full bg-gradient-to-b from-transparent to-black/10 z-20"></div>
+//             </div>
+//             <div className="mt-6 text-xl font-bold text-blue-700 tracking-wide">Our Team</div>
+//             <div className="mt-2 text-blue-600 max-w-xs text-center">Dedicated professionals creating digital excellence</div>
+//           </div>
 //         </div>
 
-//         {/* 3D Carousel Container */}
-//         <div 
-//           ref={containerRef}
-//           className="w-full md:w-1/2 relative h-[400px] md:h-[500px] perspective-1000"
-//         >
-//           {heroImages.map((img, index) => (
+//         {/* Center Card */}
+//         <div className="flex-[1.3] flex flex-col items-center justify-center">
+//           <div className="bg-white rounded-2xl shadow-2xl p-8 flex flex-col items-center w-[520px] mx-auto">
+//             {/* Animated Brand Logo */}
 //             <motion.div
-//               key={img}
-//               className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl"
-//               initial={false}
-//               animate={{
-//                 rotateY: currentHeroImage === index ? 0 : 30,
-//                 scale: currentHeroImage === index ? 1 : 0.85,
-//                 opacity: currentHeroImage === index ? 1 : 0.7,
-//                 zIndex: currentHeroImage === index ? 30 : 20 - Math.abs(currentHeroImage - index),
-//                 x: currentHeroImage === index ? 0 : 
-//                     index > currentHeroImage ? "30%" : "-30%",
-//                 filter: currentHeroImage === index ? 
-//                   "blur(0px)" : "blur(2px)",
-//               }}
-//               transition={{
-//                 type: "spring",
-//                 stiffness: 100,
-//                 damping: 20,
-//                 duration: 0.8
-//               }}
-//               style={{
-//                 transformStyle: "preserve-3d",
-//                 backfaceVisibility: "hidden",
-//                 transformOrigin: "center",
-//               }}
+//               className="text-center mb-6"
+//               initial={{ opacity: 0 }}
+//               animate={{ opacity: 1 }}
+//               transition={{ duration: 0.8 }}
 //             >
-//               <div className="relative w-full h-full">
-//                 <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/70 z-10" />
-//                 <img
+//               <motion.h1
+//                 className="text-[2.5vw] md:text-[2vw] font-extrabold tracking-wide mb-4 flex items-center justify-center"
+//                 initial="hidden"
+//                 animate={showAnimation ? "visible" : "hidden"}
+//                 variants={{
+//                   hidden: {},
+//                   visible: { transition: { staggerChildren: 0.13 } }
+//                 }}
+//               >
+//                 {/* ... (your existing logo animation) ... */}
+//               </motion.h1>
+//             </motion.div>
+
+//             {/* Image Slider */}
+//             <motion.div 
+//               className="w-full max-w-[420px] h-[260px] rounded-xl overflow-hidden shadow-lg relative border-4 border-white mx-auto"
+//               style={{ boxShadow: '0 0 32px 8px rgba(239,68,68,0.4)' }}
+//               initial={{ opacity: 0, scale: 0.9 }}
+//               animate={{ opacity: 1, scale: 1 }}
+//               transition={{ duration: 0.8, delay: 0.4 }}
+//             >
+//               {homeImages.map((img, idx) => (
+//                 <motion.img
+//                   key={idx}
 //                   src={img}
-//                   alt="Service showcase"
-//                   className="w-full h-full object-cover"
+//                   alt={`Slide ${idx}`}
+//                   className="absolute inset-0 w-full h-full object-cover"
+//                   initial={{ opacity: 0 }}
+//                   animate={{ 
+//                     opacity: idx === currentCenterImage ? 1 : 0,
+//                     scale: idx === currentCenterImage ? 1 : 1.03
+//                   }}
+//                   transition={{ duration: 0.8 }}
 //                 />
-                
-//                 {/* Floating elements for 3D effect */}
-//                 {currentHeroImage === index && (
-//                   <>
-//                     <motion.div 
-//                       className="absolute top-6 left-6 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg"
-//                       initial={{ y: -20, opacity: 0 }}
-//                       animate={{ y: 0, opacity: 1 }}
-//                       transition={{ delay: 0.4 }}
-//                     >
-//                       <span className="font-bold text-amber-600">+42%</span> Engagement
-//                     </motion.div>
-                    
-//                     <motion.div 
-//                       className="absolute bottom-6 right-6 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg"
-//                       initial={{ y: 20, opacity: 0 }}
-//                       animate={{ y: 0, opacity: 1 }}
-//                       transition={{ delay: 0.6 }}
-//                     >
-//                       <span className="font-bold text-green-600">3.8x</span> Growth
-//                     </motion.div>
-//                   </>
-//                 )}
+//               ))}
+//               <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
+//                 {homeImages.map((_, idx) => (
+//                   <button
+//                     key={idx}
+//                     className={`w-2 h-2 rounded-full transition-all ${idx === currentCenterImage ? 'bg-white w-4' : 'bg-white/50'}`}
+//                     onClick={() => setCurrentCenterImage(idx)}
+//                   />
+//                 ))}
 //               </div>
 //             </motion.div>
-//           ))}
-          
-//           {/* Floating brand logo */}
-//           <motion.div
-//             className="absolute -top-8 -right-8 z-40"
-//             initial={{ scale: 0, rotate: -45 }}
-//             animate={{ scale: 1, rotate: 0 }}
-//             transition={{ 
-//               type: "spring",
-//               delay: 0.8,
-//               stiffness: 150,
-//               damping: 15
-//             }}
-//           >
-//             <div className="relative w-24 h-24">
-//               <div className="absolute inset-0 bg-gradient-to-br from-amber-400 to-amber-600 rounded-xl rotate-45 shadow-2xl" />
-//               <span className="absolute inset-0 flex items-center justify-center text-white font-bold text-lg rotate-[-45deg]">
-//                 Miteye
-//               </span>
-//             </div>
-//           </motion.div>
-//         </div>
-//       </section>
 
-//       {/* Add your other sections (Services, Team, Testimonials) below */}
+//             {/* Text and Buttons */}
+//             <motion.div 
+//               className="text-center mt-6"
+//               initial={{ opacity: 0, y: 20 }}
+//               animate={{ opacity: 1, y: 0 }}
+//               transition={{ delay: 0.6 }}
+//             >
+//               <p className="text-lg md:text-xl text-amber-600 italic font-semibold mb-6 max-w-2xl">
+//                 "Success is not just about ideas, it's about making ideas happen."<br/>
+//                 <span className="block text-right text-amber-700 font-bold mt-2">— Er. Vikas Singh<br/>
+//                   <span className='text-lg text-amber-500 font-bold'>Founder</span>
+//                 </span>
+//               </p>
+//               <div className="flex flex-wrap justify-center gap-4">
+//                 <motion.a 
+//                   href="#about" 
+//                   className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-amber-500/20"
+//                   whileHover={{ scale: 1.05 }}
+//                   whileTap={{ scale: 0.95 }}
+//                 >
+//                   About Us
+//                 </motion.a>
+//                 <motion.a 
+//                   href="#team" 
+//                   className="bg-white border-2 border-gray-200 hover:bg-gray-50 text-gray-800 font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-gray-400/10"
+//                   whileHover={{ scale: 1.05 }}
+//                   whileTap={{ scale: 0.95 }}
+//                 >
+//                   Meet the Team
+//                 </motion.a>
+//               </div>
+//             </motion.div>
+//           </div>
+//         </div>
+
+//         {/* Right Card */}
+//         <div className="flex-1 flex flex-col items-center justify-center">
+//           <div className="bg-white rounded-2xl shadow-2xl p-6 flex flex-col items-center w-[340px] mx-auto">
+//             <div className="relative w-[260px] h-[260px] rounded-full bg-orange-50 flex items-center justify-center overflow-hidden">
+//               {/* Animated Glow Layer */}
+//               <div className="absolute inset-0 rounded-full animate-[multiGlow_4s_linear_infinite] z-0" />
+//               {/* Animated Image Layer */}
+//               <div className="absolute inset-0 w-full h-full rounded-full animate-[floatPop_4s_ease-in-out_infinite] z-10">
+//                 <img
+//                   src={heroImages[0]}
+//                   alt="Vision"
+//                   className="w-full h-full object-cover rounded-full"
+//                   style={{ zIndex: 2 }}
+//                 />
+//               </div>
+//               {/* Optional overlays */}
+//               <div className="absolute inset-0 rounded-full border-4 border-white/30 z-20"></div>
+//               <div className="absolute inset-0 rounded-full bg-gradient-to-b from-transparent to-black/10 z-20"></div>
+//             </div>
+//             <div className="mt-6 text-xl font-bold text-pink-700 tracking-wide">Our Vision</div>
+//             <div className="mt-2 text-pink-600 max-w-xs text-center">Creating digital experiences that inspire and connect</div>
+//           </div>
+//         </div>
+//       </div>
 //     </div>
 //   );
 // };
 
-// export default Home;
-// -------------------------------------------------------------------
+// export default Home;  
+
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import ServiceCard from '../components/ServiceCard';
-import Team from './Team';
-import Testimonials from './Testimonials';
 
 const Home = () => {
   const [showAnimation, setShowAnimation] = useState(false);
+  const [currentGlowColor, setCurrentGlowColor] = useState(0);
   const heroImages = [
     "/Team1.jpg",
     "/Screenshot1.png",
     "/Screenshot2.png",
     "/home2.jpg"
-    //  "src/assets/images/HomeImages/Screenshot1.png",
-    // "src/assets/images/HomeImages/Screenshot2.png",
-    // "src/assets/images/HomeImages/Screenshot3.png"
   ];
   const homeImages = [
     "/imagesMiteye.jpg",
-    "/home1.jpg",
     "/home3.jpg"
-    //  "src/assets/images/HomeImages/Screenshot1.png",
-    // "src/assets/images/HomeImages/Screenshot2.png",
-    // "src/assets/images/HomeImages/Screenshot3.png"
   ];
-  const [currentHeroImage, setCurrentHeroImage] = useState(0);
+  const [currentCenterImage, setCurrentCenterImage] = useState(0);
+
+  // Subtler glow colors with reduced intensity
+  const glowColors = [
+    { 
+      color: 'orange',
+      shadow: '0 0 20px 5px rgba(251, 191, 36, 0.7)'
+    },
+    { 
+      color: 'red',
+      shadow: '0 0 20px 5px rgba(239, 68, 68, 0.7)'
+    },
+    { 
+      color: 'pink',
+      shadow: '0 0 20px 5px rgba(236, 72, 153, 0.7)'
+    },
+    { 
+      color: 'blue',
+      shadow: '0 0 20px 5px rgba(59, 130, 246, 0.7)'
+    },
+    { 
+      color: 'purple',
+      shadow: '0 0 20px 5px rgba(139, 92, 246, 0.7)'
+    }
+  ];
 
   useEffect(() => {
     setShowAnimation(true);
-  }, []);
+    
+    // Interval for changing center image
+    const imageInterval = setInterval(() => {
+      setCurrentCenterImage((prev) => (prev + 1) % homeImages.length);
+    }, 3000);
+    
+    // Interval for changing glow color (slower transition)
+    const glowInterval = setInterval(() => {
+      setCurrentGlowColor((prev) => (prev + 1) % glowColors.length);
+    }, 3000);
+    
+    return () => {
+      clearInterval(imageInterval);
+      clearInterval(glowInterval);
+    };
+  }, [homeImages.length]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
+  // Floating animation variants
+  const floatVariants = {
+    floatBottomPop: {
+      y: [0, 40, 0],
+      scale: [1, 1.18, 1],
+      transition: {
+        duration: 4,
+        repeat: Infinity,
+        repeatType: "mirror",
+        ease: "easeInOut"
+      }
+    },
+    floatReverse: {
+      y: [0, -40, 0],
+      scale: [1, 1.18, 1],
+      transition: {
+        duration: 4,
+        repeat: Infinity,
+        repeatType: "mirror",
+        ease: "easeInOut"
+      }
+    }
+  };
 
   return (
-    <div className="flex flex-col min-h-screen overflow-x-hidden bg-grey-100">
-      
-      {/* Three side-by-side divs: left, middle (wider), right */}
-      <div className="flex w-full h-[800px] gap-3 mt-4 ml-20 mx-auto max-w-[120rem]">
-        {/* Left */}
-        <div className="bg-white basis-1/5 flex items-center justify-center shadow-2xl">
-          {/* Show only a single static image, no animation */}
-          <div className="relative w-full max-w-[400px] h-[400px] mx-auto flex items-center justify-center px-8">
-            <img
-              src={heroImages[3]}
-              alt="Hero Visual"
-              width={350}
-              height={350}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] object-cover rounded-full border-8 border-blue-200 transition-all duration-700 opacity-100 scale-100 z-10"
-              style={{
-                transitionProperty: 'opacity, transform',
-                zIndex: 10,
-                // boxShadow: '0 0 0 12px #60a5fa, 0 0 60px 10px #f472b6, 0 0 120px 30px #facc15, 0 0 200px 60px #34d399',
-              }}
-            />
+    <div className="min-h-screen bg-gradient-to-br from-pink-200 via-yellow-100 to-blue-200 py-4">
+      {/* Mobile-first layout */}
+      <div className="flex flex-col md:flex-row w-full md:h-[80vh] gap-4 sm:gap-8 px-4 sm:px-6 mx-auto max-w-[1400px] items-center justify-center mt-6 sm:mt-12">
+        {/* Left Card - Mobile: hidden, Desktop: visible */}
+        <div className="hidden md:flex flex-1 flex-col items-center justify-center">
+          <div className="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 flex flex-col items-center w-full max-w-[280px] sm:max-w-[340px] mx-auto">
+            <div className="relative w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] rounded-full bg-orange-50 flex items-center justify-center overflow-hidden">
+              <div className="absolute inset-0 rounded-full animate-[multiGlow_4s_linear_infinite] z-0" />
+              <div className="absolute inset-0 w-full h-full rounded-full animate-[floatPop_4s_ease-in-out_infinite] z-10">
+                <img
+                  src={heroImages[3]}
+                  alt="Team"
+                  className="w-full h-full object-cover rounded-full"
+                  style={{ zIndex: 2 }}
+                />
+              </div>
+              <div className="absolute inset-0 rounded-full border-4 border-white/30 z-20"></div>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-b from-transparent to-black/10 z-20"></div>
+            </div>
+            <div className="mt-4 sm:mt-6 text-lg sm:text-xl font-bold text-blue-700 tracking-wide">Our Team</div>
+            <div className="mt-1 sm:mt-2 text-sm sm:text-base text-blue-600 max-w-xs text-center">Dedicated professionals creating digital excellence</div>
           </div>
         </div>
-        {/* Middle */}
-        <div className="bg-orange-200 basis-1/2 flex flex-col items-center justify-center px-16 py-16 rounded-2xl shadow-2xl min-h-[600px] shadow-2xl">
-          <motion.h1
-            className="text-[5vw] md:text-[3vw] font-extrabold tracking-wide font-[Host_Grotesk] text-center mb-8 flex items-center justify-center gap-2"
-            initial="hidden"
-            animate={showAnimation ? "visible" : "hidden"}
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.13 } }
-            }}
-          >
-            <motion.span
-              variants={{ hidden: { y: 80, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 120, duration: 0.7 } } }}
-              className="text-red-600 font-black"
-              style={{ fontFamily: 'Arial Black, Arial, sans-serif' }}
-            >M</motion.span>
-            <motion.span
-              variants={{ hidden: { y: 80, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 120, duration: 0.7 } } }}
-              className="text-black mx-[-0.1em]"
-            >it</motion.span>
-            <motion.span
-              variants={{ hidden: { y: 80, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 120, duration: 0.7 } } }}
-              className="inline-block align-middle mx-[-0.22em]"
-              style={{ width: '1.1em', height: '1em', position: 'relative', top: '-0.32em' }}
-            >
-              <svg viewBox="0 0 60 50" width="100%" height="100%" style={{ display: 'inline', verticalAlign: 'middle' }}>
-                <defs>
-                  <linearGradient id="triangleGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#fef9c3" />
-                    <stop offset="100%" stopColor="#22c55e" />
-                  </linearGradient>
-                </defs>
-                <polygon points="30,45 5,5 55,5" fill="url(#triangleGradient)" />
-                <line x1="30" y1="2" x2="30" y2="48" stroke="black" strokeWidth="1" strokeLinecap="butt" />
-              </svg>
-            </motion.span>
-            <motion.span
-              variants={{ hidden: { y: 80, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 120, duration: 0.7 } } }}
-              className="text-black"
-            >eye</motion.span>
-          </motion.h1>
 
-          {/* Image section with sliding images from homeImages array */}
-<div className="w-full overflow-hidden max-w-[900px] h-[1000px] sm:h-[1200px] mx-auto mb-1 rounded-3xl shadow-2xl border-8 border-white relative">
-  <motion.div
-    className="flex absolute top-0 left-0 h-full"
-    animate={{ x: [0, `-${100 / homeImages.length}%`] }}
-    transition={{ duration: homeImages.length * 4, repeat: Infinity, ease: 'linear' }}
-    style={{ width: `${homeImages.length * 200}%` }}
-  >
-    {[...homeImages, ...homeImages].map((img, idx) => (
-      <img
-        key={idx}
-        src={img}
-        alt={`Slide ${idx}`}
-        className="object-cover h-full"
-        style={{ width: `${100 / homeImages.length}%` }}
-      />
-    ))}
-  </motion.div>
-</div>
-          <p className="text-2xl mb-12 max-w-4xl mx-auto md:mx-0 text-center">
-            Let your brand story shine and your message echo across digital
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center md:justify-end gap-4">
-            <a 
-              href="#about" 
-              className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full transition duration-300"
+        {/* Center Card - Always visible */}
+        <div className="w-full md:flex-[1.3] flex flex-col items-center justify-center order-first md:order-none">
+          <div className="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center w-full max-w-[95vw] sm:max-w-[520px] mx-auto">
+            {/* Image Slider - Mobile responsive */}
+            <motion.div 
+              className="w-full max-w-[85vw] sm:max-w-[420px] h-[40vw] sm:h-[260px] rounded-xl overflow-hidden shadow-lg relative border-4 border-white mx-auto"
+              style={{ boxShadow: '0 0 32px 8px rgba(239,68,68,0.4)' }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
             >
-              About Us
-            </a>
-            <a 
-              href="#team" 
-              className="bg-transparent border-2 border-gray-200 hover:bg-gray-200 hover:text-indigo-800 font-bold py-3 px-8 rounded-full transition duration-300"
+              {homeImages.map((img, idx) => (
+                <motion.img
+                  key={idx}
+                  src={img}
+                  alt={`Slide ${idx}`}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  initial={{ opacity: 0 }}
+                  animate={{ 
+                    opacity: idx === currentCenterImage ? 1 : 0,
+                    scale: idx === currentCenterImage ? 1 : 1.03
+                  }}
+                  transition={{ duration: 0.8 }}
+                />
+              ))}
+              <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
+                {homeImages.map((_, idx) => (
+                  <button
+                    key={idx}
+                    className={`w-2 h-2 rounded-full transition-all ${idx === currentCenterImage ? 'bg-white w-4' : 'bg-white/50'}`}
+                    onClick={() => setCurrentCenterImage(idx)}
+                  />
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Text and Buttons - Mobile responsive */}
+            <motion.div 
+              className="text-center mt-4 sm:mt-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
             >
-              Meet the Team
-            </a>
+              <p className="text-sm sm:text-lg md:text-xl text-amber-600 italic font-semibold mb-4 sm:mb-6 max-w-2xl">
+                "Success is not just about ideas, it's about making ideas happen."<br/>
+                <span className="block text-right text-amber-700 font-bold mt-1 sm:mt-2">— Er. Vikas Singh<br/>
+                  <span className='text-sm sm:text-lg text-amber-500 font-bold'>Founder</span>
+                </span>
+              </p>
+              <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+                <motion.a 
+                  href="#about" 
+                  className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-6 sm:py-3 sm:px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-amber-500/20 text-sm sm:text-base"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  About Us
+                </motion.a>
+                <motion.a 
+                  href="#team" 
+                  className="bg-white border-2 border-gray-200 hover:bg-gray-50 text-gray-800 font-bold py-2 px-6 sm:py-3 sm:px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-gray-400/10 text-sm sm:text-base"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Meet the Team
+                </motion.a>
+              </div>
+            </motion.div>
           </div>
         </div>
-        {/* Right */}
-        <div className="bg-white basis-1/5 flex items-center justify-center shadow-2xl">
-          {/* Animated Hero Images Carousel */}
-          <div className="relative w-full max-w-[400px] h-[400px] mx-auto flex items-center justify-center px-8">
-            {heroImages.map((img, idx) => (
-              <motion.img
-                key={img}
-                src={img}
-                alt="Hero Visual"
-                width={350}
-                height={350}
-                className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] object-cover rounded-full shadow-2xl border-8 border-red-200 transition-all duration-700 ${idx === currentHeroImage ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-95 z-0'}`}
-                style={{ transitionProperty: 'opacity, transform', zIndex: idx === currentHeroImage ? 10 : 0 }}
-                // animate={idx === currentHeroImage ? { y: [0, 120, 0] } : {}}
-                // transition={idx === currentHeroImage ? { duration: 1.6, repeat: Infinity, repeatType: 'loop', ease: [0.68, -0.55, 0.27, 1.55] } : {}}
-                animate={{}}
-                transition={{}}
+
+        {/* Right Card - Mobile: hidden, Desktop: visible */}
+        <div className="hidden md:flex flex-1 flex-col items-center justify-center">
+          <div className="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 flex flex-col items-center w-full max-w-[280px] sm:max-w-[340px] mx-auto">
+            <div className="relative w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] rounded-full bg-orange-50 flex items-center justify-center overflow-hidden">
+              <div className="absolute inset-0 rounded-full animate-[multiGlow_4s_linear_infinite] z-0" />
+              <div className="absolute inset-0 w-full h-full rounded-full animate-[floatPop_4s_ease-in-out_infinite] z-10">
+                <img
+                  src={heroImages[0]}
+                  alt="Vision"
+                  className="w-full h-full object-cover rounded-full"
+                  style={{ zIndex: 2 }}
+                />
+              </div>
+              <div className="absolute inset-0 rounded-full border-4 border-white/30 z-20"></div>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-b from-transparent to-black/10 z-20"></div>
+            </div>
+            <div className="mt-4 sm:mt-6 text-lg sm:text-xl font-bold text-pink-700 tracking-wide">Our Vision</div>
+            <div className="mt-1 sm:mt-2 text-sm sm:text-base text-pink-600 max-w-xs text-center">Creating digital experiences that inspire and connect</div>
+          </div>
+        </div>
+
+        {/* Mobile-only side cards (simplified) */}
+        <div className="flex md:hidden w-full justify-between mt-4 gap-4">
+          {/* Mobile Left Card */}
+          <div className="bg-white rounded-2xl shadow-xl p-3 flex-1 flex flex-col items-center">
+            <div className="relative w-16 h-16 rounded-full bg-orange-50 overflow-hidden">
+              <img
+                src={heroImages[3]}
+                alt="Team"
+                className="w-full h-full object-cover rounded-full"
               />
-            ))}
+            </div>
+            <div className="mt-2 text-sm font-bold text-blue-700">Our Team</div>
+          </div>
+          
+          {/* Mobile Right Card */}
+          <div className="bg-white rounded-2xl shadow-xl p-3 flex-1 flex flex-col items-center">
+            <div className="relative w-16 h-16 rounded-full bg-orange-50 overflow-hidden">
+              <img
+                src={heroImages[0]}
+                alt="Vision"
+                className="w-full h-full object-cover rounded-full"
+              />
+            </div>
+            <div className="mt-2 text-sm font-bold text-pink-700">Our Vision</div>
           </div>
         </div>
       </div>

@@ -76,10 +76,11 @@ const Services = () => {
   ];
 
   return (
-    <div className="py-16 bg-white">
+    <div className="py-16 bg-gradient-to-br from-pink-200 via-yellow-100 to-blue-200">
       <div className="container mx-auto px-4">
         {/* Packages Section */}
-        <section className="mb-20 bg-gray-50 rounded-3xl shadow-2xl px-4 md:px-16 py-16 w-full max-w-7xl mx-auto min-h-[600px]">
+        {/* <section className="mb-20 bg-gray-50 rounded-3xl shadow-2xl px-4 md:px-16 py-16 w-full max-w-7xl mx-auto min-h-[600px]"> */}
+        <section className="mb-20 bg-gradient-to-br from-pink-200 via-yellow-100 to-blue-200 rounded-3xl shadow-2xl px-4 md:px-16 py-16 w-full max-w-7xl mx-auto min-h-[600px]">
           <div className="text-center mb-12">
             <h1 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4 py-2">
               Social Media Management Packages

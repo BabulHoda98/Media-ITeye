@@ -13,7 +13,7 @@ const AboutUs = () => {
   ];
 
   return (
-    <div className="font-sans bg-gray-50">
+    <div className="font-sans bg-gradient-to-br from-pink-200 via-yellow-100 to-blue-200">
       {/* Intro Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">

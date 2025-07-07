@@ -130,12 +130,12 @@ const Header = () => {
         </a>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center font-medium text-gray-800 space-x-1 lg:space-x-3 xl:space-x-6">
+        <div className="hidden md:flex items-center font-medium text-gray-800 space-x-1 lg:space-x-3 xl:space-x-6 justify-center">
           {navItems.map((item) => (
             <a
               key={item.id}
               href={item.hash}
-              className={`px-3 py-2 rounded-lg transition-all duration-200 hover:text-blue-500 ${getActiveClass(item.hash)}`}
+              className={`px-3 py-2 rounded-lg transition-all duration-200 hover:text-blue-500 hover:underline hover:underline-offset-8 ${getActiveClass(item.hash)}${item.id === 'home' ? ' font-bold' : ''}`}
               onClick={(e) => handleAnchorClick(e, item.hash)}
             >
               {item.label}
