@@ -376,7 +376,7 @@ const Services = () => {
                     </div>
 
                     <button className="mt-auto w-full bg-white bg-opacity-90 hover:bg-opacity-100 text-gray-800 py-3 px-4 rounded-xl transition duration-300 font-semibold shadow-md hover:shadow-lg">
-                      Order Now
+                     Service Me
                     </button>
                   </div>
                 </div>
