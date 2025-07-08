@@ -136,7 +136,15 @@ const Header = () => {
               key={item.id}
               href={item.hash}
               className={`px-3 py-2 rounded-lg transition-all duration-200 hover:text-blue-500 hover:underline hover:underline-offset-8 ${getActiveClass(item.hash)}${item.id === 'home' ? ' font-bold' : ''}`}
-              onClick={(e) => handleAnchorClick(e, item.hash)}
+              onClick={(e) => {
+                e.preventDefault();
+                if (item.id === 'home') {
+                  navigate('/');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                  handleAnchorClick(e, item.hash);
+                }
+              }}
             >
               {item.label}
             </a>
